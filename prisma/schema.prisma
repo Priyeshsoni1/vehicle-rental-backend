@@ -8,23 +8,27 @@ datasource db {
 }
 
 model VehicleType {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  vehicles  Vehicle[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  wheels   Int
+  vehicles Vehicle[]
 }
 
 model Vehicle {
   id             Int      @id @default(autoincrement())
-  name           String
+  model          String
+  pricePerDay    Int
   vehicleTypeId  Int
   vehicleType    VehicleType @relation(fields: [vehicleTypeId], references: [id])
   bookings       Booking[]
 }
 
 model Booking {
-  id         Int      @id @default(autoincrement())
-  vehicleId  Int
-  startDate  DateTime
-  endDate    DateTime
-  vehicle    Vehicle @relation(fields: [vehicleId], references: [id])
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  startDate   DateTime
+  endDate     DateTime
+  vehicleId   Int
+  vehicle     Vehicle @relation(fields: [vehicleId], references: [id])
 }
