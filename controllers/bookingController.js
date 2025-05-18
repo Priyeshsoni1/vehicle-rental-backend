@@ -37,8 +37,12 @@ exports.createBooking = async (req, res) => {
 
 exports.getAllBooking = async (req, res) => {
   try {
-    const bookings = await prisma.booking.findMany();
-    res.status(200).json(bookings); // Use 200 for successful GET
+    const bookings = await prisma.booking.findMany({
+      include: {
+        vehicle: true, // Include the related vehicle data
+      },
+    });
+    res.status(200).json(bookings); // 200 for successful GET
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
